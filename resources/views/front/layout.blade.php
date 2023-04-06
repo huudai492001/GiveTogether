@@ -1,14 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>HELPZ - Free Charity Website Template</title>
+    <title>GIVE TOGETHER</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{{asset('assets/img/favicon.ico')}}" rel="icon">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -24,16 +24,11 @@
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
 </head>
 <body>
-        @include('front.header')
+    @include('front.header')
+{{--    Content--}}
+    @yield('content')
 
-{{--        SESSION CONTENT--}}
-        <div class="details">
-            @yield('content')
-        </div>
+    @include('front.footer')
 
-
-
-{{--    footer--}}
-@include('front.footer')
 </body>
 </html>
