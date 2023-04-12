@@ -84,6 +84,7 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="{{route('login')}}" class="nav-item nav-link">Login</a>
             </div>
         </div>
     </div>

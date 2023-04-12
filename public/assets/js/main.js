@@ -123,6 +123,7 @@
 
 
     // Facts counter
+    // dếm nhảy số trong việc đếm dữ liệu
     $('[data-toggle="counter-up"]').counterUp({
         delay: 10,
         time: 2000

@@ -36,4 +36,7 @@ class BaseController extends Controller
     public function volunteer(){
         return view('volunteer');
     }
+    public function login(){
+        return view('auth.login');
+    }
 }
