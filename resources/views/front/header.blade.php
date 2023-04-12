@@ -6,11 +6,11 @@
                 <div class="top-bar-left">
                     <div class="text">
                         <i class="fa fa-phone-alt"></i>
-                        <p>+123 456 7890</p>
+                        <p>0775555878</p>
                     </div>
                     <div class="text">
                         <i class="fa fa-envelope"></i>
-                        <p>info@example.com</p>
+                        <p>GiveTogether@club.com</p>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,6 @@
     </div>
 </div>
 <!-- Top Bar End -->
-
 
 <!-- Nav Bar Start -->
 <div class="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -56,8 +55,10 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="#" class="nav-item nav-link">Login</a>
             </div>
         </div>
     </div>
 </div>
 <!-- Nav Bar End -->
+
