@@ -17,6 +17,7 @@
   <meta name="description" content="{{ setting('MetaDescription') }}">
   <!-- ====== Laravel author site edit delete from admin panel ====================== -->
   <meta name="author" content="{{ setting('MetaDescription') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- ====== Laravel keywords site edit delete from admin panel ================== -->
   <meta name="keywords" content="{!! setting('MetaKeyWords') !!}">
   <!-- ====== Laravel robots site edit delete from admin panel ================== -->
@@ -37,6 +38,8 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{{ asset(Setting('FaviconTwo')) }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset(Setting('FaviconThree')) }}">
   <link rel="manifest" href="{{ asset('dashboardassets/images/favicon/manifest.json') }}">
+  <link rel="stylesheet" href="{{ asset('css-main.css') }}">
+
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
@@ -91,7 +94,7 @@
             <ul class="nav flex-column">
               <li class="nav-item">
                 <!-- ============================================= nav admin Site ============================================= -->
-                <a class="nav-link active" href="{{ url('admin') }}">
+                <a class="nav-link active" href="{{ route('dashboard') }}">
                   <i class="icon-material-outline-dashboard"></i>
                   <span>Dashboard</span>
                 </a>
@@ -119,7 +122,7 @@
               </li>
                <!-- ============================================= nav admin Site ============================================= -->
               <li class="nav-item">
-                <a class="nav-link " href="{{ url('dashboard/dashboardCauses') }}">
+                <a class="nav-link " href="{{route('cause.index')}}">
                   <i class="icon-material-outline-assignment"></i>
                   <span>Causes</span>
                 </a>
@@ -147,7 +150,7 @@
               </li>
                <!-- ============================================= nav admin Site ============================================= -->
               <li class="nav-item">
-                <a class="nav-link " href="{{ url('dashboard/dashboardCategores') }}">
+                <a class="nav-link " href="{{ route('category.index') }}">
                   <i class="icon-feather-archive"></i>
                   <span>Categores</span>
                 </a>
@@ -240,6 +243,9 @@
               <!-- / .main-navbar -->
                <!-- ============================================= nav admin Site ============================================= -->
               @yield('dashboardcontent')
+
+               @yield('script')
+
                <!-- ============================================= nav admin Site ============================================= -->
               <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
                 <span class="copyright ml-auto my-auto mr-2">Copyright © 2019
@@ -272,6 +278,20 @@
         <script type="text/javascript" src="{{ asset('dashboardassets/scripts/aragon-dashboards.1.1.0.min.js') }}"></script>
         <!-- ============================================= javascript admin Site ============================================= -->
         <script type="text/javascript" src="{{ asset('dashboardassets/scripts/app/view.js') }}"></script>
-        <!-- ============================================= javascript admin Site ============================================= -->
+  <!-- ============================================= javascript admin Site ============================================= -->
+
+{{--  SLUG sẽ xử lý khi mình nhập title thì trong input slug sẽ được điền tự động giống như trên title --}}
+        <script type="text/javascript" src="{{ asset('assets/js/slug.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{--  Ckeditor--}}
+
+
+  <!-- Sweet Alert CSS -->
+
+
       </body>
       </html>

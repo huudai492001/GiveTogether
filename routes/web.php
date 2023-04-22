@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CauseController;
 
 
 /*
@@ -26,6 +28,18 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 //    Category Controller
 Route::prefix('category')->group(function (){
+    Route::get('index', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('edit/{slug}',[CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('update/{slug}',[CategoryController::class, 'update'])->name('category.update');
+    Route::delete('delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+});
+//Cause Controller
+Route::prefix('cause')->group(function (){
+   Route::get('index', [CauseController::class, 'index'])->name('cause.index');
+   Route::get('create', [CauseController::class, 'create'])->name('cause.create');
+   Route::post('store', [CauseController::class, 'store'])->name('cause.store');
 
 });
 //BaseController

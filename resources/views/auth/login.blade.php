@@ -3,7 +3,7 @@
 @section('content')
     <!-- ============================================================= Content Start ============================================================= -->
     <div class="limiter">
-        <div class="container-login100" style="background-image: url('{!! asset(Setting('HomePicture')) !!}');">
+        <div class="container-login100" style="background-image: url('{!! asset('assets/img/background_login.jpg')!!}');">
             <div class="wrap-login100">
                 <form method="POST" action="{{ route('login') }}" class="login100-form validate-form">
                     @csrf

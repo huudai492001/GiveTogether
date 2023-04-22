@@ -3,7 +3,7 @@
 @section('dashboardcontent')
 <!-- ================================ links Categores Content Start ========================================================================= -->
 <div class="main-content-container container-fluid px-4">
-  
+
     <!-- Page Header -->
     <div class="page-header row no-gutters py-4">
       <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -17,12 +17,16 @@
         <!-- Add New Post Form -->
         <div class="card card-small mb-3">
           <div class="card-body">
-            <form class="add-new-post" action="{{ route('dashboardCategores.update',$Category->slug) }}" method="POST"  role="form" enctype="multipart/form-data">
+              @if(Session::has('success'))
+                  <div class="alert alert-success" role="alert">
+                      {{Session::get('success')}}
+                  </div>
+              @endif
+            <form class="add-new-post" action="{{route('category.update', $Category->slug)}}" method="POST"  role="form" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
-              <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Category Order" name="order" value="{{ $Category->order }}">
-              <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Category Title" name="title" value="{{ $Category->title }}">
-              <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Category Slug" name="slug" value="{{ $Category->slug }}">
+
+              <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Category Title" id="slug" onkeyup="ChangeToSlug();" name="title" value="{{ $Category->title }}">
+              <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Category Slug" id="convert_slug" name="slug" value="{{ $Category->slug }}">
               <select class="custom-select" name="color">
                 <option value="{{ $Category->color }}" selected="">{{ $Category->color }}</option>
                 <option value="primary" class="rounded" style="color: #007bff">Color 1</option>
@@ -61,17 +65,28 @@
               </li>
               <!-- ================================ dashboard Categores store ====================================== -->
               <li class="list-group-item d-flex px-3">
-                   <a href="{{ url('dashboard/dashboardCategores') }}" class="btn btn-sm btn-outline-accent"><i class="icon-line-awesome-align-justify"></i> Categores</a>
+                   <a href="{{ route('category.index') }}" class="btn btn-sm btn-outline-accent"><i class="icon-line-awesome-align-justify"></i> Categores</a>
                   <button class="btn btn-sm btn-accent ml-auto" type="submit">
                     <i class="icon-line-awesome-align-justify"></i> Publish</button>
                   </li>
                   <!-- ================================ dashboard Categores store ====================================== -->
                 </ul>
-              </div>
-            </div>
-            <!-- / Post Overview -->
-          </div>
-        </div>
+             </div>
       </div>
+              </form>
+
+      </div>
+    </div>
+</div>
+            <!-- / Post Overview -->
+
+
+</div>
+
+
+
+
+
+
       <!-- ================================ links Categores Content Start ========================================================================= -->
 @endsection

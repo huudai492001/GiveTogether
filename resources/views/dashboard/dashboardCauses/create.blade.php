@@ -5,7 +5,7 @@
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">
     <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-      <span class="text-uppercase page-subtitle">Causes</span>
+      <span class="text-uppercase page-sub title">Causes</span>
       <h3 class="page-title"><i class=" icon-material-outline-assignment"></i> Add Cause</h3>
     </div>
   </div>
@@ -16,19 +16,34 @@
       <!-- Add New Post Form -->
       <div class="card card-small mb-3">
         <div id="form-container" class="card-body">
+            @if(Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{Session::get('success')}}
+                </div>
+            @endif
           <!-- ================================ dashboard Causes store ========================================================================= -->
-          <form action="{{ route('dashboardCauses.store') }}" method="POST"  role="form" enctype="multipart/form-data" class="add-new-post">
+          <form action="{{route('cause.store')}}" method="POST"  role="form" enctype="multipart/form-data" class="add-new-post">
             @csrf
             <!-- ================================ dashboard Causes store ========================================================================= -->
-            <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Title" name="Title_en">
-            <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Slug" name="slug">
-            <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Raised" name="Raised">
-            <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Goal" name="Goal">
-            <input class="form-control form-control-lg mb-3" type="number" placeholder="Your Donors" name="Donors">
+              <label class="required-label" for="title">Title: <span class="required-star">*</span></label>
+            <input class="form-control form-control-lg mb-3" type="text" required = "required" placeholder="Your Title" id="slug" onkeyup="ChangeToSlug();" name="title">
+              <label class="required-label" for="title">Slug: <span class="required-star">*</span></label>
+              <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Slug" readonly id="convert_slug" name="slug">
+              <div class="form-control form-control-lg mb-3">
+                  <label class="required-label" for="title">Status: <span class="required-star">*</span></label>
+                  <select style="font-size: 15px;" class="custom-select" name="status">
+
+                      <option value="active" class="rounded" style="color:#09E326; " >Active</option>
+                      <option value="blocked" class="rounded" style="color:red">Blocked</option>
+                      <option value="finished" class="rounded" style="color: #869187">Finished</option>
+                  </select>
+              </div>
+              <label class="required-label" for="title">Short_Description: <span class="required-star">*</span></label>
+            <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Donors" name="short_description">
             <!-- ================================ dashboard Causes store ========================================================================= -->
             <div class="form-control form-control-lg mb-3">
-              <label for="Category">Category Causes</label>
-              <select class="custom-select" name="category_id">
+                <label class="required-label" for="title">Category Causes: <span class="required-star">*</span></label>
+              <select style="font-size: 15px;" class="custom-select" name="category_id">
                 <option value="1" selected="">Category Causes</option>
                 @foreach($Categores as $Category)
                 <option value="{{ $Category->id }}">{{ $Category->title }}</option>
@@ -36,27 +51,18 @@
               </select>
             </div>
             <!-- ================================ dashboard Causes store ========================================================================= -->
-            <textarea class="form-control form-control-lg mb-3" type="text" name="Content_en" rows="10"></textarea>
+              <label class="required-label" for="title">More description: <span class="required-star">*</span></label>
+              <textarea id="task_area" class="form-control form-control-lg mb-3" type="text" name="description" ></textarea>
             <div class="row mt-3">
               <div class="col-2">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" 
-                     aria-selected="true">
-                    <img src="{{ asset('dashboardassets/images/german.png') }}"> German</a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><img src="{{ asset('dashboardassets/images/arabic.png') }}"> Arabic</a>
+{{--                    có 2 phần trống--}}
                   </div>
                 </div>
                 <!-- ================================ dashboard Causes store ========================================================================= -->
                 <div class="col-10">
                   <div class="tab-content" id="v-pills-tabContent">
-                   <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                      <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title German" name="Title_gr">
-                      <textarea class="form-control form-control-lg mb-3" cols="4" name="Content_gr" placeholder="Your Post Content German"></textarea>
-                   </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                      <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title Arabic" name="Title_ar">
-                      <textarea class="form-control form-control-lg mb-3" cols="4" name="Content_ar" placeholder="Your Post Content Arabic"></textarea>
-                  </div>
+{{--                có 10 phần trống có thể điền--}}
                   <!-- ================================ dashboard Causes store ========================================================================= -->
                 </div>
               </div>
@@ -98,13 +104,15 @@
                 </span>
               </li>
               <li class="list-group-item d-flex px-3">
-                  <a class="btn btn-sm btn-outline-accent" href="{{ route('dashboardCauses.index') }}"><i class="icon-material-outline-description"></i> Causes</a>
-                  <button class="btn btn-sm btn-accent ml-auto" type="submit">
-                    <i class="icon-feather-file-plus"></i> Publish</button>
+                  <a id="image_upload_form" class="btn btn-sm btn-outline-accent" href="{{route('cause.index')}}"><i class="icon-material-outline-description"></i> Causes</a>
+                  <button class="btn btn-sm btn-accent ml-auto submit" type="submit">
+                    <i  class="icon-feather-file-plus"></i> Publish</button>
                   </li>
                 </ul>
-              </div>
-            </div>
+          </div>
+        </div>
+
+
             <!-- / Post Overview -->
             <!-- ================================ dashboard Causes store ========================================================================= -->
             <div class='card card-small mb-3'>
@@ -114,20 +122,35 @@
               <div class='card-body p-0'>
                 <ul class="list-group list-group-flush">
                   <div class="edit-post-details__avatar m-auto">
-                    <img src="{{ asset('dashboardassets/images/content-management/cover.png') }}" alt="User Avatar">
+                    <img class="image_preview" src="{{ asset('dashboardassets/images/content-management/cover.png') }}"  alt="User Avatar">
                     <label class="edit-post-details__avatar__change">
                       <i class="material-icons   icon-material-outline-add-a-photo mr-1"></i>
-                      <input type="file" name="image" hidden="">
+                      <input type="file" name="image" id="image" hidden="">
                     </label>
                   </div>
                 </ul>
-              </form>
+              </div>
             </div>
+
             <!-- ================================ dashboard Causes store ========================================================================= -->
           </div>
+      </form>
           <!-- / Post Overview -->
         </div>
       </div>
     </div>
+
 <!-- ================================ links Causes Content Start ========================================================================= -->
 @endsection
+
+@section('script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#task_area' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endsection
+@include('dashboard.dashboardCauses.image_script')

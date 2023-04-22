@@ -90,7 +90,7 @@
   <script async defer src="{{ asset('dashboardassets/scripts/buttons.js') }}"></script>
   <!-- ============================================= styles SiteTitle ============================================= -->
 </head>
-<body class="h-100">      
+<body class="h-100">
   <div class="container-fluid">
     <div class="row">
       <!-- Main Sidebar -->
@@ -100,13 +100,13 @@
             <a class="navbar-brand w-100 mr-0" href="{{ url('/')}}" style="line-height: 25px;" target="_blank">
               <div class="d-table m-auto">
                 <!-- ============================================= Name SiteTitle ============================================= -->
-                <img id="main-logo" class="d-inline-block align-top mr-1 rounded-circle20"  
+                <img id="main-logo" class="d-inline-block align-top mr-1 rounded-circle20"
                 src="{{ asset(Setting()->FaviconOne) }}" alt="Name">
                  <!-- ============================================= Name SiteTitle ============================================= -->
                 @if(isset(Setting()->Name))
                 <span class="d-none d-md-inline ml-1">{{ Setting()->Name }}</span>
                 @else
-                @endif 
+                @endif
                 <!-- ============================================= Name SiteTitle ============================================= -->
               </div>
             </a>
@@ -175,7 +175,7 @@
               </li>
                <!-- ============================================= Name SiteTitle ============================================= -->
               <li class="nav-item">
-                <a class="nav-link " href="{{ url('dashboard/dashboardCategores') }}">
+                <a class="nav-link " href="{{ url('dashboard/dashboardCategories') }}">
                   <i class="icon-feather-archive"></i>
                   <span>Categores</span>
                 </a>
@@ -215,7 +215,7 @@
                      <!-- ============================================= Name SiteTitle ============================================= -->
                     <a class="nav-link nav-link-icon text-center" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" 
+                    document.getElementById('logout-form').submit();" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
@@ -227,7 +227,7 @@
                   </a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" 
+                  <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
                   role="button" aria-haspopup="true" aria-expanded="false">
                    <!-- ============================================= Name SiteTitle ============================================= -->
                   <img class="user-avatar rounded-circle20 mr-2" src="{!! asset(Auth::user()->avatar) !!}" alt="Admin Avatar">
@@ -362,6 +362,6 @@
           });
         </script>
         <!-- ============================================= dashboard javascript ============================================= -->
-        
+
       </body>
       </html>

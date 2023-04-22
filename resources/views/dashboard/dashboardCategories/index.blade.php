@@ -26,10 +26,10 @@
     <div class="page-header row no-gutters py-4">
       <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
         <span class="text-uppercase page-subtitle">Overview</span>
-        <h3 class="page-title"><i class="icon-line-awesome-align-justify"></i> Categores 
-          <a href="{{ route('dashboardCategores.create') }}" class="mb-2 btn btn-success mr-2"><i class="icon-material-outline-add-circle-outline"></i> 
+        <h3 class="page-title"><i class="icon-line-awesome-align-justify"></i> Categores
+          <a href="{{route('category.create')}}" class="mb-2 btn btn-success mr-2"><i class="icon-material-outline-add-circle-outline"></i>
           Add Categores</a>
-        </h3>  
+        </h3>
         </div>
       </div>
       <!-- ================================ dashboard Categores store ====================================== -->
@@ -44,10 +44,11 @@
             </div>
             <div class="card-body p-0">
               <div class="container-fluid px-0">
+
                 <table class="table mb-0">
                   <thead class="py-2 bg-light text-semibold border-bottom">
                     <tr>
-                      <th>Order</th>
+
                       <th>Name</th>
                       <th class="text-center">Slug</th>
                       <th class="text-center">Color</th>
@@ -57,10 +58,8 @@
                   <tbody>
                     <!-- ================================ dashboard Categores store ====================================== -->
                     @foreach($Categores as $Category)
-                    <tr>
-                      <td class="lo-stats__image">
-                        <span>{{ $Category->order }}</span>
-                      </td>
+                    <tr id="sid{{$Category->id}}">
+                        <input type="hidden" class="serdelete_val_id" value="{{$Category->id}}">
                       <td class="lo-stats__order-details">
                         <span>{{ $Category->title }}</span>
                         <span>{{ date('M j, Y', strtotime($Category->created_at)) }}</span>
@@ -74,14 +73,12 @@
                       <td class="lo-stats__actions">
                         <!-- ================================ dashboard Categores store ====================================== -->
                         <div class="btn-group d-table ml-auto" role="group" aria-label="Basic example">
-            <a href="{{ URL::to('dashboard/dashboardCategores')}}/{{$Category->slug}}/edit" class="mb-2 btn btn-sm btn-primary">
+            <a href="{{route('category.edit',$Category->slug)}}" class="mb-2 btn btn-sm btn-primary">
             <i class="icon-feather-edit"></i> Edit</a>
-           <!-- ================================ dashboard Categores store ====================================== -->
-           <form action="{{ route('dashboardCategores.destroy',$Category->id) }}" method="POST" files="true" style="display: inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button class="mb-2 btn btn-sm btn-danger" type="submit"><i class="icon-material-outline-delete"></i> Delete</button>
-                          </form>
+
+{{--   Button delete--}}
+              <button id="cc" type="button" data-id ="{{$Category->id}}" class="servideletebtn mb-2 btn btn-sm btn-danger ">
+                  <i class="icon-material-outline-delete"></i> Delete</button>
                         </div>
                       </td>
                     </tr>
@@ -96,15 +93,16 @@
               <div class="row">
                <div class="col">
                     <!-- ================================ links dashboard Categores store ====================================== -->
-                     {!! $Categores->links() !!}
+                   {{$Categores->links()}}
+{{--                     {!! $Categores->links() !!}--}}
                      <!-- ================================ links dashboard Categores store ====================================== -->
                   </div>
                   <div class="col text-right view-report">
-                    @if(COUNT($Categores) != NULL)
-                    <a>Showing 10 to {{ COUNT($Categores) }} of {{ COUNT($Categores) }} Categores</a>
-                    @else
-                    <a>Showing 10 to 0 of 0 Categores</a>
-                    @endif
+{{--                    @if(COUNT($Categores) != NULL)--}}
+{{--                    <a>Showing 10 to {{ COUNT($Categores) }} of {{ COUNT($Categores) }} Categores</a>--}}
+{{--                    @else--}}
+{{--                    <a>Showing 10 to 0 of 0 Categores</a>--}}
+{{--                    @endif--}}
                   </div>
               </div>
             </div>
@@ -112,5 +110,58 @@
         </div>
       </div>
   </div>
-  <!-- ================================ links Categores Content Start ========================================================================= -->
+
+<!-- ================================ links Categores Content Start ========================================================================= -->
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+<script>
+
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $("#cc").click(function (e) {
+            e.preventDefault();
+            var delete_id = $(this).closest("tr").find('.serdelete_val_id').val();
+            // alert(delete_id);
+
+            swal({
+
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var data = {
+                            _token: $('meta[name="csrf-token"]').val(),
+                            "id" : delete_id,
+                        };
+                        $.ajax({
+                            type: "DELETE",
+                            url: "delete/"+delete_id,
+                            data : data,
+                            success: function (response){
+                                swal(response.success , {
+                                    icon: "success",
+                                    button: false,
+                                })
+                               .then((willDelete) => {
+                                    location.reload(true);//this will release the event
+                                });
+                            }
+                        })
+                    } else {
+                        swal("Your category is safe!");
+                    }
+                });
+        })
+    });
+</script>
+@endsection
 @endsection
